@@ -27,8 +27,11 @@ public class Player : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
+        // Player Movement 
         moveDir = Input.GetAxis("Horizontal");
+
+        // Player Jumping 
         if (Input.GetKeyDown(KeyCode.Space) && jumpsRemaining > 0)
         {
             jumpsRemaining--;
@@ -37,16 +40,20 @@ public class Player : MonoBehaviour
             charCon.m_Grounded = false;
             speed = airSpeed;
         }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            animator.SetTrigger("Death");
-        }
-        print("before check: " + charCon.IsPlayerOnGround());
-        if (charCon.IsPlayerOnGround() && jump == false)
+        // print("before check: " + charCon.IsPlayerOnGround());
+        // This checks if the player has finished jumping. resets jumps and changes speed 
+        if (charCon.IsPlayerOnGround() && charCon.m_Rigidbody2D.velocity.y <=0) 
         {
             jumpsRemaining = maxJumps;
             speed = origSpeed;
         }
+
+        // Player kys 
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            animator.SetTrigger("Death");
+        }
+        
     }
 
     private void FixedUpdate()

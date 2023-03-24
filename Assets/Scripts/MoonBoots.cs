@@ -7,12 +7,14 @@ using UnityEngine;
  
 public class MoonBoots : Powerup // Calls PowerUpObject
 {
-    public float new_jumpLimit;
+    // New Jump Limit is initialized in the Unity Editor for the Moon Boots asset 
+    public int new_jumpLimit;
     public override void Apply(GameObject target)
     {
         // Checks if target name begins with 'P' (Player) 
+        // Be sure the Player is tagged 'Player '
         if (target.ToString()[0] == 'P') {
-            target.GetComponent<CharacterController2D1>().maxJumps = new_jumpLimit;
+            target.GetComponent<Player>().maxJumps = new_jumpLimit; // Calls the maxJumps variable in the Player class 
         }
 
     }
