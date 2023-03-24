@@ -18,7 +18,7 @@ public class CharacterController2D1 : MonoBehaviour {
   private bool m_FacingRight = true;  // For determining which way the player is currently facing.
   private Vector3 m_Velocity = Vector3.zero;
     public float maxJumps = 1;
-    public float remaining_jumps;
+    public float remaining_jumps = 1;
   [Header("Events")]
   [Space]
 
@@ -126,7 +126,7 @@ public class CharacterController2D1 : MonoBehaviour {
       m_Grounded = false;
       m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
     }
-    if (m_Grounded && m_Rigidbody2D.velocity.y <= 0)
+    if (m_Grounded) //}&& m_Rigidbody2D.velocity.y <= 0)
         {
             remaining_jumps = maxJumps;
         }

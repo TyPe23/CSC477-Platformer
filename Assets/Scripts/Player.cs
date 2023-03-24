@@ -28,7 +28,20 @@ public class Player : MonoBehaviour {
   }
 
   private void FixedUpdate() {
-    charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
+    print(jump);
+    
+
+    if (jump)
+    {
+        print("jumped");
+        charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
+        print("jumped " + jump);
+    }
+    else
+    {
+        charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
+    }
+
     if (charCon.IsPlayerOnGround()) {
       animator.SetTrigger("Grounded");
     }
