@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class Player : MonoBehaviour
-{
+public class Player1 : MonoBehaviour {
     public Animator animator;
     public float speed;
 
@@ -17,8 +16,7 @@ public class Player : MonoBehaviour
     public float airSpeed;
     public float origSpeed;
 
-    private void Start()
-    {
+    private void Start() {
         charCon = GetComponent<CharacterController2D>();
         jump = false;
         maxJumps = 1;
@@ -49,10 +47,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         //print(jump);
-
+    
 
         if (jump)
         {
@@ -66,7 +63,7 @@ public class Player : MonoBehaviour
         }
 
         //print("before check: " + charCon.IsPlayerOnGround());
-        if (charCon.IsPlayerOnGround())
+        if (charCon.IsPlayerOnGround()) 
         {
             animator.SetTrigger("Grounded");
         }

@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &12003603 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 507355206898114068, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-  m_PrefabInstance: {fileID: 488386268}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &294028025
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +186,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294028025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.0700006, y: 1.56, z: -10}
+  m_LocalPosition: {x: -6.07, y: 1.56, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -268,49 +263,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 507355206898114068, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.461
-      objectReference: {fileID: 0}
-    - target: {fileID: 507355206898114069, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: m_Size.x
-      value: 0.40064758
-      objectReference: {fileID: 0}
-    - target: {fileID: 507355206898114069, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.0043430105
-      objectReference: {fileID: 0}
-    - target: {fileID: 507355206898114069, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 507355206909064413, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: m_Size.x
-      value: 0.36590272
-      objectReference: {fileID: 0}
-    - target: {fileID: 507355206909064413, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: m_Offset.x
-      value: 0.030402005
-      objectReference: {fileID: 0}
-    - target: {fileID: 507355207100364976, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 507355207100364977, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 507355207100364977, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.9192
-      objectReference: {fileID: 0}
-    - target: {fileID: 507355207100364977, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.9192
-      objectReference: {fileID: 0}
-    - target: {fileID: 507355207100364977, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.9192
       objectReference: {fileID: 0}
     - target: {fileID: 507355207100364977, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -356,17 +311,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 507355207100365007, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 507355207100365007, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: k_GroundedRadius
-      value: 0.2
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 507355206898114069, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-    - {fileID: 507355206909064413, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
 --- !u!1 &619394800
 GameObject:
@@ -625,7 +570,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 838790522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.0700006, y: 1.56, z: -10}
+  m_LocalPosition: {x: -6.07, y: 1.56, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -717,79 +662,11 @@ PrefabInstance:
       objectReference: {fileID: 1682859614}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60b690e288d025d4285cf9d4c1ab90b0, type: 3}
---- !u!4 &1034219534 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 507355206909064412, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-  m_PrefabInstance: {fileID: 488386268}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1254233721 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 507355207100364978, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-  m_PrefabInstance: {fileID: 488386268}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1254233735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1254233721}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a66a0c2ad4d3c224c9aaa17d2b61a8a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_JumpForce: 400
-  m_CrouchSpeed: 0.36
-  m_MovementSmoothing: 0.05
-  m_AirControl: 0
-  m_WhatIsGround:
-    serializedVersion: 2
-    m_Bits: 8
-  m_GroundCheck: {fileID: 12003603}
-  m_CeilingCheck: {fileID: 1034219534}
-  m_CrouchDisableCollider: {fileID: 0}
-  k_GroundedRadius: 1
-  m_Grounded: 0
-  maxJumps: 1
-  remaining_jumps: 1
-  OnLandEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCrouchEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1254233736 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 507355207100364977, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
   m_PrefabInstance: {fileID: 488386268}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &1254233742
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1254233721}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.017372549, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.40933353, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &1429271044
 GameObject:
   m_ObjectHideFlags: 0
