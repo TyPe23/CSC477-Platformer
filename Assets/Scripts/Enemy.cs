@@ -72,12 +72,13 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        print(state);
         statesStayMeths[state].Invoke();
     }
 
     private void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.CompareTag("player"))
+        if (c.CompareTag("Player"))
         {
             if ( state == state.PATROL_LEFT || state == state.PATROL_RIGHT)
             {
@@ -88,7 +89,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D c)
     {
-        if (c.CompareTag("player"))
+        if (c.CompareTag("Player"))
         {
             if (state == state.CHASE)
             {
@@ -199,7 +200,7 @@ public class Enemy : MonoBehaviour
         else
         {
             jump = false;
-            charCon.Move(speed * Time.fixedDeltaTime, false, jump);
+            charCon.Move(-speed * Time.fixedDeltaTime, false, jump);
             animator.SetFloat("Idle Run", 1f);
         }
     }

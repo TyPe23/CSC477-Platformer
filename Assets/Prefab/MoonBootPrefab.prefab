@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2509516147000045037}
   - component: {fileID: 5590651227850477570}
   - component: {fileID: 5590651227850477628}
-  - component: {fileID: 8384978580087286880}
+  - component: {fileID: 1941205902}
   m_Layer: 0
   m_Name: MoonBootPrefab
   m_TagString: Untagged
@@ -112,7 +112,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8384978580087286880
+--- !u!114 &1941205902
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

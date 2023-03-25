@@ -6,6 +6,8 @@ using UnityEngine;
 // Template to destroy a power up object and apply its effect
 public class PowerUpObject : MonoBehaviour
 {
+    private Vector2 origPos;
+
     public Powerup powerup; // Calls PowerAbstract.cs
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,8 +27,15 @@ public class PowerUpObject : MonoBehaviour
                 powerup.Apply(lilboyScript.gameObject); // Calls PowerAbstract.cs
             }
         }
+    }
 
+    private void Start()
+    {
+        origPos = transform.position;
+    }
 
-         
+    private void Update()
+    {
+        transform.position = new Vector2(transform.position.x, origPos.y + Mathf.Sin(Time.time) * 0.125f);
     }
 }

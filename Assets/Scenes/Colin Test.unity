@@ -178,12 +178,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: MoonBootPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 5590651227850477628, guid: d627f6381066a9e40b2138597182b22a, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5590651227850477629, guid: d627f6381066a9e40b2138597182b22a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d627f6381066a9e40b2138597182b22a, type: 3}
 --- !u!1 &294028025
 GameObject:
@@ -15403,21 +15398,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf08d4a64701604f98e2106342cec63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1941205901 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5234321673344977707, guid: d627f6381066a9e40b2138597182b22a, type: 3}
-  m_PrefabInstance: {fileID: 225259044}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1941205902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1941205901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0e02421db100334f99d6ce312887f47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerup: {fileID: 11400000, guid: 63d5da57b2a39e040b5d1a7997abff8c, type: 2}
