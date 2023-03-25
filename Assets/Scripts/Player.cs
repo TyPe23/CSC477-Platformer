@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 public class Player : MonoBehaviour
@@ -28,11 +30,27 @@ public class Player : MonoBehaviour
 
     private void Update()
     {   
-        // Player Movement 
-        moveDir = Input.GetAxis("Horizontal");
+        if (charCon.IsPlayerOnGround() && charCon.m_Rigidbody2D.velocity.y <=0) 
+        {
+            jumpsRemaining = maxJumps;
+            speed = origSpeed;
+        }
+    }
 
-        // Player Jumping 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpsRemaining > 0)
+    public void Left(InputAction.CallbackContext context)
+    {
+        moveDir = -context.ReadValue<float>();
+    }
+
+    public void Right(InputAction.CallbackContext context)
+    {
+        moveDir = context.ReadValue<float>();
+    }
+
+    public void Jump(InputAction.CallbackContext context)
+    {
+        print(context.started);
+        if (jumpsRemaining > 0 && context.started)
         {
             jumpsRemaining--;
             jump = true;
@@ -40,39 +58,19 @@ public class Player : MonoBehaviour
             charCon.m_Grounded = false;
             speed = airSpeed;
         }
-        // print("before check: " + charCon.IsPlayerOnGround());
-        // This checks if the player has finished jumping. resets jumps and changes speed 
-        if (charCon.IsPlayerOnGround() && charCon.m_Rigidbody2D.velocity.y <=0) 
-        {
-            jumpsRemaining = maxJumps;
-            speed = origSpeed;
-        }
-
-        // Player kys 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            animator.SetTrigger("Death");
-        }
-        
     }
 
     private void FixedUpdate()
     {
-        //print(jump);
-
-
         if (jump)
         {
-            //print("before jump: " + charCon.IsPlayerOnGround());
             charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
-            //print("after jump: " + charCon.IsPlayerOnGround());
         }
         else
         {
             charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
         }
 
-        //print("before check: " + charCon.IsPlayerOnGround());
         if (charCon.IsPlayerOnGround())
         {
             animator.SetTrigger("Grounded");
