@@ -7,7 +7,7 @@ using state = enemyStates;
 public enum enemyStates
 {
     IDLE,
-    RUN,
+    RESET,
     PATROL_RIGHT,
     PATROL_LEFT,
     CHASE
@@ -24,12 +24,14 @@ public class Enemy : MonoBehaviour
     public float speed;
     private Animator animator;
     private float xTarget;
+    private Vector2 origPos;
 
     //Set in inspector
     public Transform tfPlayer;
     public float distFromPlayer;
-    private float speedInc;
+    public float speedInc;
     private bool jump = false;
+    public float patrolDist;
     #endregion
 
     #region LifeCycle
@@ -39,7 +41,7 @@ public class Enemy : MonoBehaviour
         statesStayMeths = new Dictionary<enemyStates, Action>()
         {
             {state.IDLE, StateStayIdle},
-            {state.RUN, StateStayRun},
+            {state.RESET, StateStayReset},
             {state.PATROL_LEFT, StateStayPatLeft},
             {state.PATROL_RIGHT, StateStayPatRight},
             {state.CHASE, StateStayChase},
@@ -48,7 +50,7 @@ public class Enemy : MonoBehaviour
         statesEnterMeths = new Dictionary<enemyStates, Action>()
         {
             {state.IDLE, StateEnterIdle},
-            {state.RUN, StateEnterRun},
+            {state.RESET, StateEnterReset},
             {state.PATROL_LEFT, StateEnterPatLeft},
             {state.PATROL_RIGHT, StateEnterPatRight},
             {state.CHASE, StateEnterChase},
@@ -57,7 +59,7 @@ public class Enemy : MonoBehaviour
         statesExitMeths = new Dictionary<enemyStates, Action>()
         {
             {state.IDLE, StateExitIdle},
-            {state.RUN, StateExitRun},
+            {state.RESET, StateExitReset},
             {state.PATROL_LEFT, StateExitPatLeft},
             {state.PATROL_RIGHT, StateExitPatRight},
             {state.CHASE, StateExitChase},
@@ -66,6 +68,7 @@ public class Enemy : MonoBehaviour
         state = state.IDLE;
         charCon = GetComponent<CharacterController2D>();
         animator = GetComponent<Animator>();
+        origPos = transform.position;
     }
 
 
@@ -126,7 +129,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    private void StateExitRun()
+    private void StateExitReset()
     {
         
     }
@@ -146,15 +149,15 @@ public class Enemy : MonoBehaviour
 
     private void StateEnterPatRight()
     {
-        xTarget = transform.position.x + 5;
+        xTarget = transform.position.x + patrolDist;
     }
 
     private void StateEnterPatLeft()
     {
-        xTarget = transform.position.x - 5;
+        xTarget = transform.position.x - patrolDist;
     }
 
-    private void StateEnterRun()
+    private void StateEnterReset()
     {
         
     }
@@ -205,7 +208,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void StateStayRun()
+    private void StateStayReset()
     {
         if (Mathf.Abs(transform.position.x - tfPlayer.position.x) > distFromPlayer)
         {
@@ -220,7 +223,7 @@ public class Enemy : MonoBehaviour
     {
         if (charCon.IsPlayerOnGround())
         {
-            ChangeState(state.RUN);
+            ChangeState(state.RESET);
         }
     }
     #endregion

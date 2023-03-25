@@ -192,7 +192,7 @@ Transform:
   m_Children:
   - {fileID: 1592914192}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &365907778
 PrefabInstance:
@@ -15296,7 +15296,7 @@ Transform:
   - {fileID: 1429271045}
   - {fileID: 365907779}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1682859612
 PrefabInstance:
@@ -15397,6 +15397,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7534835498684057037, guid: c0f308f0c154c9f44803d4393df64393, type: 3}
+      propertyPath: speed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534835498684057037, guid: c0f308f0c154c9f44803d4393df64393, type: 3}
+      propertyPath: tfPlayer
+      value: 
+      objectReference: {fileID: 1254233736}
+    - target: {fileID: 7534835498684057037, guid: c0f308f0c154c9f44803d4393df64393, type: 3}
+      propertyPath: patrolDist
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8042127291263253881, guid: c0f308f0c154c9f44803d4393df64393, type: 3}
       propertyPath: m_Name
       value: Enemy

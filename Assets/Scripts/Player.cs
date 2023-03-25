@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {   
-        if (charCon.IsPlayerOnGround() && charCon.m_Rigidbody2D.velocity.y <=0) 
+        if (charCon.IsPlayerOnGround())// && charCon.m_Rigidbody2D.velocity.y <=0) 
         {
             jumpsRemaining = maxJumps;
             speed = origSpeed;
