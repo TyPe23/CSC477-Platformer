@@ -66,12 +66,16 @@ public class CharacterController2D : MonoBehaviour {
 
   public void Move(float move, bool crouch, bool jump) {
     // If crouching, check to see if the character can stand up
-    if (!crouch) {
+    // COLIN: For some reason this is not working. 
+    //        The player is instead shifted into the ground with their original speed/colliders
+    //        Moved the Player/Ceiling component in the unity editor. Did not seem to work. Ask Dr.Cherry monday. 
+     if (!crouch) {
       // If the character has a ceiling preventing them from standing up, keep them crouching
       if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround)) {
         crouch = true;
       }
     }
+   
 
     //only control the player if grounded or airControl is turned on
     if (m_Grounded || m_AirControl) {
@@ -84,7 +88,7 @@ public class CharacterController2D : MonoBehaviour {
         }
 
         // Reduce the speed by the crouchSpeed multiplier
-        move *= m_CrouchSpeed;
+        move *= m_CrouchSpeed * Time.fixedDeltaTime;
 
         // Disable one of the colliders when crouching
         if (m_CrouchDisableCollider != null)
@@ -93,8 +97,9 @@ public class CharacterController2D : MonoBehaviour {
       else {
         // Enable the collider when not crouching
         if (m_CrouchDisableCollider != null)
-          m_CrouchDisableCollider.enabled = true;
-
+        {
+            m_CrouchDisableCollider.enabled = true;
+        }
         if (m_wasCrouching) {
           m_wasCrouching = false;
           OnCrouchEvent.Invoke(false);

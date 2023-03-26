@@ -509,6 +509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 507355207100364977}
   - component: {fileID: 507355207100364976}
+  - component: {fileID: 8572851473255894497}
   - component: {fileID: 507355207100364979}
   - component: {fileID: 507355207100365007}
   - component: {fileID: 507355207100365006}
@@ -551,7 +552,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507355207100364978}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -559,6 +560,22 @@ CapsuleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
+  m_Direction: 0
+--- !u!70 &8572851473255894497
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507355207100364978}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.25}
+  m_Size: {x: 0.5, y: 0.5}
   m_Direction: 0
 --- !u!50 &507355207100364979
 Rigidbody2D:
@@ -625,11 +642,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 507355207100365004}
-  speed: 150
   maxJumps: 1
   jumpsRemaining: 0
+  speed: 150
   airSpeed: 0
   origSpeed: 0
+  crouchSpeed: 0
+  alive: 1
 --- !u!95 &507355207100365004
 Animator:
   serializedVersion: 5
@@ -724,6 +743,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7740d801-258d-443e-9e7c-730a3e68e8bf
     m_ActionName: Char/Jump[/Keyboard/space,/Keyboard/w,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 45b92b07-ad8b-4fc5-b907-8ff2b8895a6b
+    m_ActionName: Char/Crouch[/Keyboard/s,/Keyboard/ctrl,/Keyboard/downArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Char

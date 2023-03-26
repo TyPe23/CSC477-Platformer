@@ -8,16 +8,20 @@ using UnityEngine.Rendering.Universal;
 public class Player : MonoBehaviour
 {
     public Animator animator;
-    public float speed;
+    
 
     private CharacterController2D charCon;
-    private float moveDir;
+    
     private bool jump;
+    private bool crouch; 
     public int maxJumps;
     public int jumpsRemaining;
 
+    private float moveDir;
+    public float speed;
     public float airSpeed;
     public float origSpeed;
+    public float crouchSpeed;
 
     private Vector2 spawnPoint;
     public bool alive = true;
@@ -29,14 +33,21 @@ public class Player : MonoBehaviour
         maxJumps = 1;
         origSpeed = speed;
         airSpeed = speed * 2 / 3;
+        crouchSpeed = speed /5;
     }
 
     private void Update()
     {   
-        if (charCon.IsPlayerOnGround())// && charCon.m_Rigidbody2D.velocity.y <=0) 
+        
+        if (charCon.IsPlayerOnGround())// && charCon.m_Rigidbody2D.velocity.y <=0) COLIN: we could re-add this and make it to where you must stand still to jump? Call it a feature
         {
             jumpsRemaining = maxJumps;
             speed = origSpeed;
+        }
+        
+        if (crouch)
+        {
+            speed = crouchSpeed;
         }
     }
 
@@ -62,6 +73,24 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Crouch(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            crouch = true;
+            speed = crouchSpeed;
+            print("Speed = " + speed);
+ 
+        }
+        else
+        {
+            crouch = false;
+            speed = origSpeed;
+
+        }
+
+    }
+
     private void FixedUpdate()
     {
         if (alive)
@@ -78,6 +107,18 @@ public class Player : MonoBehaviour
             if (charCon.IsPlayerOnGround())
             {
                 animator.SetTrigger("Grounded");
+
+                if (crouch)
+                {
+                    charCon.Move(moveDir * speed * Time.fixedDeltaTime, true, false);
+
+                }
+                else
+                {
+                    charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, false);
+
+
+                }
             }
             jump = false;
             animator.SetFloat("Idle Run", Mathf.Abs(moveDir));
