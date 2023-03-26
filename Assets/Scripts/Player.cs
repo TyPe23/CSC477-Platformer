@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     public float airSpeed;
     public float origSpeed;
 
+    private Vector2 spawnPoint;
+    public bool alive = true;
+
     private void Start()
     {
         charCon = GetComponent<CharacterController2D>();
@@ -49,7 +52,6 @@ public class Player : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        print(context.started);
         if (jumpsRemaining > 0 && context.started)
         {
             jumpsRemaining--;
@@ -62,20 +64,35 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (jump)
+        if (alive)
         {
-            charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
-        }
-        else
-        {
-            charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
-        }
+            if (jump)
+            {
+                charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
+            }
+            else
+            {
+                charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
+            }
 
-        if (charCon.IsPlayerOnGround())
-        {
-            animator.SetTrigger("Grounded");
+            if (charCon.IsPlayerOnGround())
+            {
+                animator.SetTrigger("Grounded");
+            }
+            jump = false;
+            animator.SetFloat("Idle Run", Mathf.Abs(moveDir));
         }
-        jump = false;
-        animator.SetFloat("Idle Run", Mathf.Abs(moveDir));
+    }
+
+    public void respawn()
+    {
+        transform.position = spawnPoint;
+        animator.SetTrigger("Respawn");
+    }
+
+    public void checkpoint(Vector2 pos)
+    {
+        spawnPoint = pos;
+        print("Checkpoint set at: " + pos);
     }
 }

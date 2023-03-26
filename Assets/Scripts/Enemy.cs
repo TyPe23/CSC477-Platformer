@@ -6,11 +6,11 @@ using state = enemyStates;
 
 public enum enemyStates
 {
-    IDLE,
     RESET,
     PATROL_RIGHT,
     PATROL_LEFT,
-    CHASE
+    CHASE,
+    DEAD
 }
 
 public class Enemy : MonoBehaviour
@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
     public float speedInc;
     private bool jump = false;
     public float patrolDist;
+    private float resetTarget;
     #endregion
 
     #region LifeCycle
@@ -40,7 +41,6 @@ public class Enemy : MonoBehaviour
     {
         statesStayMeths = new Dictionary<enemyStates, Action>()
         {
-            {state.IDLE, StateStayIdle},
             {state.RESET, StateStayReset},
             {state.PATROL_LEFT, StateStayPatLeft},
             {state.PATROL_RIGHT, StateStayPatRight},
@@ -49,23 +49,23 @@ public class Enemy : MonoBehaviour
 
         statesEnterMeths = new Dictionary<enemyStates, Action>()
         {
-            {state.IDLE, StateEnterIdle},
             {state.RESET, StateEnterReset},
             {state.PATROL_LEFT, StateEnterPatLeft},
             {state.PATROL_RIGHT, StateEnterPatRight},
             {state.CHASE, StateEnterChase},
+            {state.DEAD, StateEnterDead},
         };
 
         statesExitMeths = new Dictionary<enemyStates, Action>()
         {
-            {state.IDLE, StateExitIdle},
             {state.RESET, StateExitReset},
             {state.PATROL_LEFT, StateExitPatLeft},
             {state.PATROL_RIGHT, StateExitPatRight},
             {state.CHASE, StateExitChase},
         };
 
-        state = state.IDLE;
+        state = state.PATROL_RIGHT;
+        StateEnterPatRight();
         charCon = GetComponent<CharacterController2D>();
         animator = GetComponent<Animator>();
         origPos = transform.position;
@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        print(state);
+        //print(state);
         statesStayMeths[state].Invoke();
     }
 
@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
     {
         if (c.CompareTag("Player"))
         {
-            if ( state == state.PATROL_LEFT || state == state.PATROL_RIGHT)
+            if ( state == state.PATROL_LEFT || state == state.PATROL_RIGHT || state == state.RESET)
             {
                 ChangeState(state.CHASE);
             }
@@ -96,8 +96,20 @@ public class Enemy : MonoBehaviour
         {
             if (state == state.CHASE)
             {
-                ChangeState(state.PATROL_RIGHT);
+                ChangeState(state.RESET);
             }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D c)
+    {
+        if (c.gameObject.CompareTag("Player"))
+        {
+            //invoke player death function here
+        }
+        else if (c.gameObject.CompareTag("attack"))
+        {
+            ChangeState(state.DEAD);
         }
     }
 
@@ -133,11 +145,6 @@ public class Enemy : MonoBehaviour
     {
         
     }
-
-    private void StateExitIdle()
-    {
-        
-    }
     #endregion
 
     #region Enter
@@ -162,9 +169,9 @@ public class Enemy : MonoBehaviour
         
     }
 
-    private void StateEnterIdle()
+    private void StateEnterDead()
     {
-        throw new NotImplementedException();
+        animator.SetTrigger("Death");
     }
     #endregion
 
@@ -182,6 +189,7 @@ public class Enemy : MonoBehaviour
 
     private void StateStayPatRight()
     {
+        
         if (transform.position.x >= xTarget)
         {
             ChangeState(state.PATROL_LEFT);
@@ -196,6 +204,8 @@ public class Enemy : MonoBehaviour
 
     private void StateStayPatLeft()
     {
+        //print("target: " + xTarget);
+        //print("pos: " + transform.position.x);
         if (transform.position.x <= xTarget)
         {
             ChangeState(state.PATROL_RIGHT);
@@ -210,20 +220,16 @@ public class Enemy : MonoBehaviour
 
     private void StateStayReset()
     {
-        if (Mathf.Abs(transform.position.x - tfPlayer.position.x) > distFromPlayer)
+        if (Mathf.Abs(transform.position.x - origPos.x) < 0.1f)
         {
             ChangeState(state.PATROL_RIGHT);
         }
-        jump = false;
-        charCon.Move(speed * Time.fixedDeltaTime, false, jump);
-        animator.SetFloat("Idle Run", 1f);
-    }
-
-    private void StateStayIdle()
-    {
-        if (charCon.IsPlayerOnGround())
+        else
         {
-            ChangeState(state.RESET);
+            float dir = (transform.position.x - origPos.x) < 0 ? 1 : -1;
+            jump = false;
+            charCon.Move((dir * speed) * Time.fixedDeltaTime, false, jump);
+            animator.SetFloat("Idle Run", 1f);
         }
     }
     #endregion

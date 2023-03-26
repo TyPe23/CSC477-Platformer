@@ -7,18 +7,18 @@
             "actions": [
                 {
                     "name": "Left",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "7ffba6dd-3748-455b-ae9c-40d7c618c101",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
                     "name": "Right",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "70d2cbea-54d2-44d0-87f4-b37718f54785",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

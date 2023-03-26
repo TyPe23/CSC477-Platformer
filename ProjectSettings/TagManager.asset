@@ -9,6 +9,8 @@ TagManager:
   - backgroundnear
   - foreground
   - ground
+  - attack
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

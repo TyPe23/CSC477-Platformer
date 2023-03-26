@@ -21,7 +21,6 @@ public class Lever : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D c)
     {
-        print(c.gameObject.tag);
         if (c.gameObject.CompareTag("attack"))
         {
             foreach (PlatformRetract platform in activatePlatform)
