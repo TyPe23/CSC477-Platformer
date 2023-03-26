@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
         jump = false;
         maxJumps = 1;
         origSpeed = speed;
-        airSpeed = speed * 2 / 3;
+        airSpeed = speed * 4 / 5;
         crouchSpeed = speed /5;
         spawnPoint = transform.position;
     }
