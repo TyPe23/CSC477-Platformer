@@ -10,7 +10,8 @@ public enum enemyStates
     PATROL_RIGHT,
     PATROL_LEFT,
     CHASE,
-    DEAD
+    DEAD,
+    IDLE
 }
 
 public class Enemy : MonoBehaviour
@@ -33,6 +34,7 @@ public class Enemy : MonoBehaviour
     private bool jump = false;
     public float patrolDist;
     private float resetTarget;
+    public Player player;
     #endregion
 
     #region LifeCycle
@@ -45,6 +47,8 @@ public class Enemy : MonoBehaviour
             {state.PATROL_LEFT, StateStayPatLeft},
             {state.PATROL_RIGHT, StateStayPatRight},
             {state.CHASE, StateStayChase},
+            {state.DEAD, StateStayDead},
+            {state.IDLE, StateStayIdle},
         };
 
         statesEnterMeths = new Dictionary<enemyStates, Action>()
@@ -54,6 +58,7 @@ public class Enemy : MonoBehaviour
             {state.PATROL_RIGHT, StateEnterPatRight},
             {state.CHASE, StateEnterChase},
             {state.DEAD, StateEnterDead},
+            {state.IDLE, StateEnterIdle},
         };
 
         statesExitMeths = new Dictionary<enemyStates, Action>()
@@ -62,6 +67,8 @@ public class Enemy : MonoBehaviour
             {state.PATROL_LEFT, StateExitPatLeft},
             {state.PATROL_RIGHT, StateExitPatRight},
             {state.CHASE, StateExitChase},
+            {state.DEAD, StateExitDead},
+            {state.IDLE, StateExitIdle},
         };
 
         state = state.PATROL_RIGHT;
@@ -71,6 +78,7 @@ public class Enemy : MonoBehaviour
         origPos = transform.position;
     }
 
+    
 
     // Update is called once per frame
     void FixedUpdate()
@@ -105,7 +113,8 @@ public class Enemy : MonoBehaviour
     {
         if (c.gameObject.CompareTag("Player"))
         {
-            //invoke player death function here
+            player.death();
+            ChangeState(state.IDLE);
         }
         else if (c.gameObject.CompareTag("attack"))
         {
@@ -145,6 +154,16 @@ public class Enemy : MonoBehaviour
     {
         
     }
+
+    private void StateExitDead()
+    {
+
+    }
+
+    private void StateExitIdle()
+    {
+
+    }
     #endregion
 
     #region Enter
@@ -172,6 +191,12 @@ public class Enemy : MonoBehaviour
     private void StateEnterDead()
     {
         animator.SetTrigger("Death");
+    }
+
+    private void StateEnterIdle()
+    {
+
+        animator.SetFloat("Idle Run", 0f);
     }
     #endregion
 
@@ -204,8 +229,6 @@ public class Enemy : MonoBehaviour
 
     private void StateStayPatLeft()
     {
-        //print("target: " + xTarget);
-        //print("pos: " + transform.position.x);
         if (transform.position.x <= xTarget)
         {
             ChangeState(state.PATROL_RIGHT);
@@ -231,6 +254,16 @@ public class Enemy : MonoBehaviour
             charCon.Move((dir * speed) * Time.fixedDeltaTime, false, jump);
             animator.SetFloat("Idle Run", 1f);
         }
+    }
+
+    private void StateStayDead()
+    {
+
+    }
+
+    private void StateStayIdle()
+    {
+
     }
     #endregion
 

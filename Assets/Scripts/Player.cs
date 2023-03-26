@@ -8,7 +8,8 @@ using UnityEngine.Rendering.Universal;
 public class Player : MonoBehaviour
 {
     public Animator animator;
-    
+
+    public LevelReset levelReset;
 
     private CharacterController2D charCon;
     
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
         origSpeed = speed;
         airSpeed = speed * 2 / 3;
         crouchSpeed = speed /5;
+        spawnPoint = transform.position;
     }
 
     private void Update()
@@ -86,7 +88,6 @@ public class Player : MonoBehaviour
         {
             crouch = false;
             speed = origSpeed;
-
         }
 
     }
@@ -111,13 +112,10 @@ public class Player : MonoBehaviour
                 if (crouch)
                 {
                     charCon.Move(moveDir * speed * Time.fixedDeltaTime, true, false);
-
                 }
                 else
                 {
                     charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, false);
-
-
                 }
             }
             jump = false;
@@ -125,10 +123,28 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void death()
+    {
+        print("died");
+        alive = false;
+        animator.SetTrigger("Death");
+        StartCoroutine(WaitThenRespawn());
+    }
+
+    private IEnumerator WaitThenRespawn()
+    {
+        print("waiting");
+        yield return new WaitForSecondsRealtime(5);
+        print("respawn");
+        respawn();
+    }
+
     public void respawn()
     {
         transform.position = spawnPoint;
         animator.SetTrigger("Respawn");
+        alive = true;
+        levelReset.resetLevel();
     }
 
     public void checkpoint(Vector2 pos)

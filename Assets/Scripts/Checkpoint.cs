@@ -20,10 +20,8 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D c)
     {
-        print(c);
         if (c.gameObject.CompareTag("Player"))
         {
-            print("Checkpoint reached");
             player.checkpoint(transform.position);
         }
     }
