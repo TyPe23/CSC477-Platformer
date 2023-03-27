@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     public state state { get; private set; }
     public float speed;
     private Animator animator;
-    private float xTarget;
+    public float xTarget;
     private Vector2 origPos;
 
     //Set in inspector
@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //print(state);
+        print(state);
         statesStayMeths[state].Invoke();
     }
 
@@ -214,7 +214,6 @@ public class Enemy : MonoBehaviour
 
     private void StateStayPatRight()
     {
-        
         if (transform.position.x >= xTarget)
         {
             ChangeState(state.PATROL_LEFT);
@@ -272,6 +271,13 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         jump = true;
+    }
+
+    public void respawn()
+    {
+        transform.position = origPos;
+        state = state.PATROL_RIGHT;
+        StateEnterPatRight();
     }
     #endregion
 }

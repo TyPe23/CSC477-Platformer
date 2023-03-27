@@ -4,32 +4,12 @@ using UnityEngine;
 
 public class Lever_Door : MonoBehaviour
 {
-    public bool flipped;
+    public bool flipped = false;
     public Door[] activateDoor;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        flipped = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (flipped)
-        {
-            foreach (Door door in activateDoor)
-            {
-                door.togglePower();
-            }
-
-            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.gameObject.CompareTag("attack"))
+        if (c.gameObject.CompareTag("Player") && !flipped)
         {
             foreach (Door door in activateDoor)
             {
@@ -38,7 +18,7 @@ public class Lever_Door : MonoBehaviour
 
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 
-
+            flipped = true;
             // play some sound here
         }
     }

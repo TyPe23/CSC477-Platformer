@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
 {
     public Animator animator;
 
-    public LevelReset levelReset;
+    public enemyReset enemyReset;
+    public doorReset doorReset;
 
     private CharacterController2D charCon;
     
@@ -33,8 +34,8 @@ public class Player : MonoBehaviour
         jump = false;
         maxJumps = 1;
         origSpeed = speed;
-        airSpeed = speed * 4 / 5;
-        crouchSpeed = speed /5;
+        airSpeed = speed * 6 / 6;
+        crouchSpeed = speed / 5;
         spawnPoint = transform.position;
     }
 
@@ -134,7 +135,7 @@ public class Player : MonoBehaviour
     private IEnumerator WaitThenRespawn()
     {
         print("waiting");
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(2);
         print("respawn");
         respawn();
     }
@@ -144,7 +145,8 @@ public class Player : MonoBehaviour
         transform.position = spawnPoint;
         animator.SetTrigger("Respawn");
         alive = true;
-        levelReset.resetLevel();
+        enemyReset.resetLevel();
+        doorReset.resetLevel();
     }
 
     public void checkpoint(Vector2 pos)
