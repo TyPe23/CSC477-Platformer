@@ -20,7 +20,7 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (poweredOn && (origPos.y - transform.position.y) <= moveDist)
+        if (poweredOn && (transform.position.y - origPos.y) <= moveDist)
         {
             transform.Translate(Vector3.up * speed * Time.deltaTime);
         }
