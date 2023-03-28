@@ -16,9 +16,5 @@ public class MoonBoots : Powerup // Calls PowerUpObject
         if (target.ToString()[0] == 'P') {
             target.GetComponent<Player>().maxJumps = new_jumpLimit; // Calls the maxJumps variable in the Player class 
         }
-
     }
-
-                
-
 }

@@ -1253,7 +1253,7 @@ GameObject:
   - component: {fileID: 713778608}
   - component: {fileID: 713778610}
   - component: {fileID: 713778609}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: blackout
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -76128,7 +76128,7 @@ GameObject:
   - component: {fileID: 1535073811}
   - component: {fileID: 1535073813}
   - component: {fileID: 1535073812}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: No Colision
   m_TagString: ground
   m_Icon: {fileID: 0}

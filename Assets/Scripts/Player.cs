@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public float origSpeed;
     public float crouchSpeed;
     public bool alive = true;
+    public bool stickyHand = false;
     #endregion
 
     #region Life Cycle
@@ -52,6 +53,30 @@ public class Player : MonoBehaviour
         if (crouch)
         {
             speed = crouchSpeed;
+        }
+
+        if (stickyHand)
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Ray ray = new Ray(transform.position, mousePos);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                // Use the hit variable to determine what was clicked on.
+                if (hit.collider.CompareTag("Ground"))
+                {
+                    print(mousePos);
+                }
+            }
+
+            // Once click position is found we need to get the player from point A (current location) to point B (where the click was made).
+
+
+
+
+
+
+            // 
+            Debug.DrawRay(GameObject.FindGameObjectsWithTag("Player")[0].transform.position, mousePos, Color.green);
         }
     }
     private void FixedUpdate()
