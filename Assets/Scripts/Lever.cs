@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lever_Platform : MonoBehaviour
+public class Lever : MonoBehaviour
 {
     public bool flipped = false;
-    public PlatformRetract[] activatePlatform;
+    public movingObj[] objs;
 
     private void OnTriggerEnter2D(Collider2D c)
     {
         if (c.gameObject.CompareTag("Player") && !flipped)
         {
-            foreach (PlatformRetract platform in activatePlatform)
+            foreach (movingObj obj in objs)
             {
-                platform.togglePower();
+                obj.togglePower();
             }
 
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);

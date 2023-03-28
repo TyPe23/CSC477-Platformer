@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2479298458146080480}
   - component: {fileID: 6403957813397677910}
   m_Layer: 0
-  m_Name: Lever (Platforms)
+  m_Name: Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,6 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flipped: 0
-  activatePlatform:
-  - {fileID: 0}
-  - {fileID: 0}
+  objs: []

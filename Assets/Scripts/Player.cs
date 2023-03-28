@@ -7,27 +7,28 @@ using UnityEngine.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
+    #region Fields and Properties
+    private float moveDir;
+    private CharacterController2D charCon;
+    private Vector2 spawnPoint;
+
     public Animator animator;
 
-    public enemyReset enemyReset;
-    public doorReset doorReset;
-
-    private CharacterController2D charCon;
-    
-    private bool jump;
-    private bool crouch; 
-    public int maxJumps;
+    public Enemy[] enemyList;
+    public movingObj[] objList;
+    public Lever[] leverList;
+    public bool jump;
+    public bool crouch; 
     public int jumpsRemaining;
-
-    private float moveDir;
+    public int maxJumps;
     public float speed;
     public float airSpeed;
     public float origSpeed;
     public float crouchSpeed;
-
-    private Vector2 spawnPoint;
     public bool alive = true;
+    #endregion
 
+    #region Life Cycle
     private void Start()
     {
         charCon = GetComponent<CharacterController2D>();
@@ -53,7 +54,39 @@ public class Player : MonoBehaviour
             speed = crouchSpeed;
         }
     }
+    private void FixedUpdate()
+    {
+        if (alive)
+        {
+            if (jump)
+            {
+                charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
+            }
+            else
+            {
+                charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
+            }
 
+            if (charCon.IsPlayerOnGround())
+            {
+                animator.SetTrigger("Grounded");
+
+                if (crouch)
+                {
+                    charCon.Move(moveDir * speed * Time.fixedDeltaTime, true, false);
+                }
+                else
+                {
+                    charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, false);
+                }
+            }
+            jump = false;
+            animator.SetFloat("Idle Run", Mathf.Abs(moveDir));
+        }
+    }
+    #endregion
+
+    #region Movement
     public void Left(InputAction.CallbackContext context)
     {
         moveDir = -context.ReadValue<float>();
@@ -90,40 +123,10 @@ public class Player : MonoBehaviour
             crouch = false;
             speed = origSpeed;
         }
-
     }
+    #endregion
 
-    private void FixedUpdate()
-    {
-        if (alive)
-        {
-            if (jump)
-            {
-                charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
-            }
-            else
-            {
-                charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
-            }
-
-            if (charCon.IsPlayerOnGround())
-            {
-                animator.SetTrigger("Grounded");
-
-                if (crouch)
-                {
-                    charCon.Move(moveDir * speed * Time.fixedDeltaTime, true, false);
-                }
-                else
-                {
-                    charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, false);
-                }
-            }
-            jump = false;
-            animator.SetFloat("Idle Run", Mathf.Abs(moveDir));
-        }
-    }
-
+    #region Helper Funcs
     public void death()
     {
         print("died");
@@ -145,8 +148,7 @@ public class Player : MonoBehaviour
         transform.position = spawnPoint;
         animator.SetTrigger("Respawn");
         alive = true;
-        enemyReset.resetLevel();
-        doorReset.resetLevel();
+        resetLevel();
     }
 
     public void checkpoint(Vector2 pos)
@@ -154,4 +156,21 @@ public class Player : MonoBehaviour
         spawnPoint = pos;
         print("Checkpoint set at: " + pos);
     }
+
+    public void resetLevel()
+    {
+        foreach (Enemy enemy in enemyList)
+        {
+            enemy.respawn();
+        }
+        foreach (movingObj obj in objList)
+        {
+            obj.resetPos();
+        }
+        foreach (Lever lever in leverList)
+        {
+            lever.flipped = false;
+        }
+    }
+    #endregion
 }

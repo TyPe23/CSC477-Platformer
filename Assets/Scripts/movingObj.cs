@@ -2,23 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformRetract : MonoBehaviour
+public class movingObj : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 5;
-    private Vector3 origPos;
+    public float speed = 5;
+    public Vector3 origPos;
     public bool poweredOn;
-    private bool moveLeft;
-    private bool moveRight;
-    private float moveDist = 8f;
+    public bool position1;
+    public bool position2;
+    public float moveDist = 8f;
     
 
     // Start is called before the first frame update
     void Start()
     {
         origPos = transform.position;
-        moveLeft = true; 
-        moveRight = false;
+        position1 = true; 
+        position2 = false;
     }
 
     // Update is called once per frame
@@ -26,22 +25,22 @@ public class PlatformRetract : MonoBehaviour
     {
         if (poweredOn)
         {
-            if (moveLeft)
+            if (position1)
             {
                 transform.Translate(Vector3.left * speed * Time.deltaTime);
                 if (transform.position.x <= origPos.x - moveDist)
                 {
-                    moveLeft = false;
-                    moveRight = true;
+                    position1 = false;
+                    position2 = true;
                 }
             }
-            if (moveRight)
+            if (position2)
             {
                 transform.Translate(Vector3.right * speed * Time.deltaTime);
                 if (transform.position.x >= origPos.x)
                 {
-                    moveLeft = true;
-                    moveRight = false;
+                    position1 = true;
+                    position2 = false;
                 }
             }
         }

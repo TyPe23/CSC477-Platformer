@@ -83,7 +83,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        print(state);
         statesStayMeths[state].Invoke();
     }
 
