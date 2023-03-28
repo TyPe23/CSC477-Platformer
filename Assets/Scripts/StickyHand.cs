@@ -36,7 +36,8 @@ public class StickyHand : Powerup
 
 
 
-        // Want this to physically draw a ray in play mode to whatever is clicked to visualize where player will be sent by the grapple.
-        Debug.DrawRay(GameObject.FindGameObjectsWithTag("Player")[0].transform.position, worldPos, Color.green);
+        // 
+        Debug.DrawRay(GameObject.FindGameObjectsWithTag("Player")[0].transform.position, worldPos, Color.green); // Debug ray    }
     }
 }
+
