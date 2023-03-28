@@ -408,7 +408,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507355206909064415}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.093, z: 0}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0}
   m_LocalScale: {x: 0.44071484, y: 0.44071484, z: 0.44071484}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -596,7 +596,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &507355207100365007
 MonoBehaviour:
@@ -642,14 +642,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 507355207100365004}
-  levelReset: {fileID: 0}
-  maxJumps: 2
+  enemyList:
+  - {fileID: 0}
+  objList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  leverList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  jump: 0
+  crouch: 0
   jumpsRemaining: 2
-  speed: 150
+  maxJumps: 2
+  speed: 100
   airSpeed: 100
   origSpeed: 150
   crouchSpeed: 30
   alive: 1
+  stickyHand: 0
 --- !u!95 &507355207100365004
 Animator:
   serializedVersion: 5
