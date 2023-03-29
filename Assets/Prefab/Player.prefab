@@ -783,7 +783,7 @@ MonoBehaviour:
   jump: 0
   crouch: 0
   jumpsRemaining: 1
-  maxJumps: 1
+  maxJumps: 2
   speed: 100
   alive: 1
   stickyHand: 0
@@ -835,9 +835,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 507355207100365006}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: Left
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -851,9 +851,9 @@ MonoBehaviour:
     m_ActionName: Char/New action
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 507355207100365006}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: Right
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -945,6 +945,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c20b6e11-a9dc-4fba-a6cf-d61beadb3788
     m_ActionName: Char/Throw[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 507355207100365006}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LeftRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9609ceea-eab5-4f68-a88d-495ce08c3540
+    m_ActionName: Char/Left/Right[/Keyboard/a,/Keyboard/d,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Char
