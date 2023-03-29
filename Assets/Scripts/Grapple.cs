@@ -28,7 +28,7 @@ public class Grapple : MonoBehaviour
     {
         if (transform.localScale.y < targetScale.y && targetScale != startScale) 
         {
-            transform.localScale += new Vector3(0, 0.5f * Time.deltaTime, 0);
+            transform.localScale += new Vector3(0, 0.6f * Time.deltaTime, 0);
         }
         else if (transform.localScale.y > startScale.y)
         {
@@ -66,7 +66,6 @@ public class Grapple : MonoBehaviour
 
             targetScale = startScale + new Vector3(0, 0.18f, 0);
 
-            charRB.gravityScale = 0;
             thrown = true;
         }
     }
@@ -75,7 +74,6 @@ public class Grapple : MonoBehaviour
     {
         if (collision.CompareTag("ground") && transform.localScale.y > 0)
         {
-
             charRB.gravityScale = 0;
             targetScale = transform.localScale;
         }

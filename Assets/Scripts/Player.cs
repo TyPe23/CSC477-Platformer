@@ -63,16 +63,11 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Input
-    public void Left(InputAction.CallbackContext context)
-    {
-        moveDir = -context.ReadValue<float>();
-        aim = Vector2.left;
-    }
-
-    public void Right(InputAction.CallbackContext context)
+    public void LeftRight(InputAction.CallbackContext context)
     {
         moveDir = context.ReadValue<float>();
-        aim = Vector2.right;
+        Vector3 aimVec = Vector3.Normalize(new Vector3(moveDir, 0, 0));
+        aim = new Vector2(aimVec.x, aimVec.y);
     }
 
     public void Up(InputAction.CallbackContext context)
