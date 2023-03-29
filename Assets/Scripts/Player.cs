@@ -9,11 +9,14 @@ public class Player : MonoBehaviour
 {
     #region Fields and Properties
     private float moveDir;
+
+
     private CharacterController2D charCon;
     private Vector2 spawnPoint;
+    private Vector3 origPoint;
 
     public Animator animator;
-
+    public Vector2 aim;
     public Enemy[] enemyList;
     public movingObj[] objList;
     public Lever[] leverList;
@@ -22,9 +25,6 @@ public class Player : MonoBehaviour
     public int jumpsRemaining;
     public int maxJumps;
     public float speed;
-    public float airSpeed;
-    public float origSpeed;
-    public float crouchSpeed;
     public bool alive = true;
     public bool stickyHand = false;
     #endregion
@@ -34,11 +34,8 @@ public class Player : MonoBehaviour
     {
         charCon = GetComponent<CharacterController2D>();
         jump = false;
-        maxJumps = 1;
-        origSpeed = speed;
-        airSpeed = speed * 6 / 6;
-        crouchSpeed = speed / 5;
         spawnPoint = transform.position;
+        origPoint = transform.position;
     }
 
     private void Update()
@@ -47,79 +44,40 @@ public class Player : MonoBehaviour
         if (charCon.IsPlayerOnGround())// && charCon.m_Rigidbody2D.velocity.y <=0) COLIN: we could re-add this and make it to where you must stand still to jump? Call it a feature
         {
             jumpsRemaining = maxJumps;
-            speed = origSpeed;
-        }
-        
-        if (crouch)
-        {
-            speed = crouchSpeed;
-        }
-
-        if (stickyHand)
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Ray ray = new Ray(transform.position, mousePos);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                // Use the hit variable to determine what was clicked on.
-                if (hit.collider.CompareTag("Ground"))
-                {
-                    print(mousePos);
-                }
-            }
-
-            // Once click position is found we need to get the player from point A (current location) to point B (where the click was made).
-
-
-
-
-
-
-            // 
-            Debug.DrawRay(GameObject.FindGameObjectsWithTag("Player")[0].transform.position, mousePos, Color.green);
         }
     }
     private void FixedUpdate()
     {
         if (alive)
         {
-            if (jump)
-            {
-                charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
-            }
-            else
-            {
-                charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, jump);
-            }
-
             if (charCon.IsPlayerOnGround())
             {
                 animator.SetTrigger("Grounded");
-
-                if (crouch)
-                {
-                    charCon.Move(moveDir * speed * Time.fixedDeltaTime, true, false);
-                }
-                else
-                {
-                    charCon.Move(moveDir * speed * Time.fixedDeltaTime, false, false);
-                }
             }
+
+            charCon.Move(moveDir * speed * Time.fixedDeltaTime, crouch, jump);
             jump = false;
             animator.SetFloat("Idle Run", Mathf.Abs(moveDir));
         }
     }
     #endregion
 
-    #region Movement
-    public void Left(InputAction.CallbackContext context)
-    {
-        moveDir = -context.ReadValue<float>();
-    }
-
-    public void Right(InputAction.CallbackContext context)
+    #region Input
+    public void LeftRight(InputAction.CallbackContext context)
     {
         moveDir = context.ReadValue<float>();
+        Vector3 aimVec = Vector3.Normalize(new Vector3(moveDir, 0, 0));
+        aim = new Vector2(aimVec.x, aimVec.y);
+    }
+
+    public void Up(InputAction.CallbackContext context)
+    {
+        aim = Vector2.up;
+    }
+
+    public void Down(InputAction.CallbackContext context)
+    {
+        aim = Vector2.down;
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -130,7 +88,6 @@ public class Player : MonoBehaviour
             jump = true;
             animator.SetTrigger("Jump");
             charCon.m_Grounded = false;
-            speed = airSpeed;
         }
     }
 
@@ -139,14 +96,10 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             crouch = true;
-            speed = crouchSpeed;
-            print("Speed = " + speed);
- 
         }
         else
         {
             crouch = false;
-            speed = origSpeed;
         }
     }
     #endregion
