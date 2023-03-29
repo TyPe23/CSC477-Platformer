@@ -7,8 +7,9 @@ public class Grapple : MonoBehaviour
 {
     private Vector3 startScale;
     public Vector3 targetScale;
-    private Vector3 startRot;
-    private Player playerScript;
+    private Player charScript;
+    private Rigidbody2D charRB;
+    private bool thrown;
 
     public GameObject player;
 
@@ -17,8 +18,9 @@ public class Grapple : MonoBehaviour
     {
         startScale = transform.localScale;
         startScale.y = 0;
-        startRot = transform.eulerAngles;
-        playerScript = player.GetComponent<Player>();
+        charScript = player.GetComponent<Player>();
+        charRB = player.GetComponent<Rigidbody2D>();
+        thrown = false;
     }
 
     // Update is called once per frame
@@ -31,23 +33,29 @@ public class Grapple : MonoBehaviour
         else if (transform.localScale.y > startScale.y)
         {
             targetScale = startScale;
-            transform.localScale -= new Vector3(0, 0.5f * Time.deltaTime, 0);
+            transform.localScale -= new Vector3(0, 0.4f * Time.deltaTime, 0);
+        }
+        else
+        {
+            thrown = false;
+            transform.localScale = startScale;
+            player.GetComponent<Rigidbody2D>().gravityScale = 3;
         }
     }
 
     public void Throw(InputAction.CallbackContext context)
     {
-        if (playerScript.stickyHand && context.performed)
+        if (charScript.stickyHand && context.performed && thrown == false)
         {
-            if (playerScript.aim == new Vector2(1, 0))
+            if (charScript.aim == new Vector2(1, 0))
             {
                 transform.localRotation = Quaternion.Euler(0, 0, -90);
             }
-            else if (playerScript.aim == new Vector2(-1, 0))
+            else if (charScript.aim == new Vector2(-1, 0))
             {
                 transform.localRotation = Quaternion.Euler(0, 0, -90);
             }
-            else if (playerScript.aim == new Vector2(0, 1))
+            else if (charScript.aim == new Vector2(0, 1))
             {
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
@@ -57,10 +65,37 @@ public class Grapple : MonoBehaviour
             }
 
             targetScale = startScale + new Vector3(0, 0.18f, 0);
+
+            player.GetComponent<Rigidbody2D>().gravityScale = 0;
+            thrown = true;
         }
-        else
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("ground") && transform.localScale.y > 0)
         {
-            targetScale = startScale;
+
+            player.GetComponent<Rigidbody2D>().gravityScale = 0;
+            targetScale = transform.localScale;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("ground"))
+        {
+            charRB.velocity = new Vector2(charRB.velocity.x, 0);
+            charRB.angularVelocity = 0f;
+            player.transform.Translate(charScript.aim * Time.deltaTime * 20);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("ground"))
+        {
+            player.GetComponent<Rigidbody2D>().gravityScale = 3;
         }
     }
 }
