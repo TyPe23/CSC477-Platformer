@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
                 }
             }
 
+            print($"mouspos = { mousePos}");
             // Once click position is found we need to get the player from point A (current location) to point B (where the click was made).
 
 
@@ -76,7 +77,7 @@ public class Player : MonoBehaviour
 
 
             // 
-            Debug.DrawRay(GameObject.FindGameObjectsWithTag("Player")[0].transform.position, mousePos, Color.green);
+            Debug.DrawRay(transform.position, mousePos, Color.green);
         }
     }
     private void FixedUpdate()

@@ -101,33 +101,14 @@ public class CharacterController2D : MonoBehaviour
                     OnCrouchEvent.Invoke(true);
                 }
 
-                if (m_wasCrouching)
-                {
-                    // Move the ceiling check transform up some y position 
-                    // HAVE A boolean condition check if the physics overlap finds something 
-                    // Use debugging print statements 
-                    m_CeilingCheck.transform.position = new Vector3(m_CeilingCheck.transform.position.x, m_CeilingCheck.transform.position.y + .5f, m_CeilingCheck.transform.position.z);
-
-                    if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround)){
-                        crouch = true;
-                        m_wasCrouching = true;
-                    }
-
-                    m_CeilingCheck.transform.position = new Vector3(m_CeilingCheck.transform.position.x, m_CeilingCheck.transform.position.y - .5f, m_CeilingCheck.transform.position.z);
-
-                    
-                }
-
                 // Reduce the speed by the crouchSpeed multiplier
-                move *= m_CrouchSpeed * Time.fixedDeltaTime;
+                move *= m_CrouchSpeed;
 
                 // Disable one of the colliders when crouching
                 if (m_CrouchDisableCollider != null)
                 {
                     m_CrouchDisableCollider.enabled = false;
                 }
-
-
             }
             else
             {
