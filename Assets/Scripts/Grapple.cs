@@ -33,13 +33,13 @@ public class Grapple : MonoBehaviour
         else if (transform.localScale.y > startScale.y)
         {
             targetScale = startScale;
-            transform.localScale -= new Vector3(0, 0.4f * Time.deltaTime, 0);
+            transform.localScale -= new Vector3(0, 0.3f * Time.deltaTime, 0);
         }
         else
         {
             thrown = false;
             transform.localScale = startScale;
-            player.GetComponent<Rigidbody2D>().gravityScale = 3;
+            charRB.gravityScale = 3;
         }
     }
 
@@ -66,7 +66,7 @@ public class Grapple : MonoBehaviour
 
             targetScale = startScale + new Vector3(0, 0.18f, 0);
 
-            player.GetComponent<Rigidbody2D>().gravityScale = 0;
+            charRB.gravityScale = 0;
             thrown = true;
         }
     }
@@ -76,7 +76,7 @@ public class Grapple : MonoBehaviour
         if (collision.CompareTag("ground") && transform.localScale.y > 0)
         {
 
-            player.GetComponent<Rigidbody2D>().gravityScale = 0;
+            charRB.gravityScale = 0;
             targetScale = transform.localScale;
         }
     }
@@ -95,7 +95,7 @@ public class Grapple : MonoBehaviour
     {
         if (collision.CompareTag("ground"))
         {
-            player.GetComponent<Rigidbody2D>().gravityScale = 3;
+            charRB.gravityScale = 3;
         }
     }
 }
