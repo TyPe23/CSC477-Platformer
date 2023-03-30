@@ -4,12 +4,16 @@ using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
+
 
 public class Player : MonoBehaviour
 {
     #region Fields and Properties
     private float moveDir;
 
+    [SerializeField] Image stickyHandUI;
+    [SerializeField] Image moonBootsUI;
 
     private CharacterController2D charCon;
     private Vector2 spawnPoint;
@@ -37,10 +41,22 @@ public class Player : MonoBehaviour
         jump = false;
         spawnPoint = transform.position;
         origPoint = transform.position;
+        stickyHandUI.enabled = false;
+        moonBootsUI.enabled = false;
+        
     }
 
     private void Update()
     {   
+        if (stickyHand)
+        {
+            stickyHandUI.enabled = true;
+        }
+
+        if (maxJumps == 2)
+        {
+            moonBootsUI.enabled = true;
+        }
         
         if (charCon.IsPlayerOnGround())// && charCon.m_Rigidbody2D.velocity.y <=0) COLIN: we could re-add this and make it to where you must stand still to jump? Call it a feature
         {
