@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] Image stickyHandUI;
     [SerializeField] Image moonBootsUI;
+    [SerializeField] TextMeshProUGUI stickyHandControl;
+    [SerializeField] TextMeshProUGUI moonBootsControl;
 
     private CharacterController2D charCon;
     private Vector2 spawnPoint;
@@ -42,7 +45,9 @@ public class Player : MonoBehaviour
         spawnPoint = transform.position;
         origPoint = transform.position;
         stickyHandUI.enabled = false;
+        stickyHandControl.enabled = false;
         moonBootsUI.enabled = false;
+        moonBootsControl.enabled = false;
         
     }
 
@@ -51,11 +56,13 @@ public class Player : MonoBehaviour
         if (stickyHand)
         {
             stickyHandUI.enabled = true;
+            stickyHandControl.enabled = true;
         }
 
         if (maxJumps == 2)
         {
             moonBootsUI.enabled = true;
+            moonBootsControl.enabled = true;
         }
         
         if (charCon.IsPlayerOnGround())// && charCon.m_Rigidbody2D.velocity.y <=0) COLIN: we could re-add this and make it to where you must stand still to jump? Call it a feature
