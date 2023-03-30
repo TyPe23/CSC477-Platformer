@@ -342,9 +342,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 25
+  xTarget: 0
   tfPlayer: {fileID: 0}
   distFromPlayer: 10
+  speedInc: 75
   patrolDist: 15
+  player: {fileID: 0}
 --- !u!1 &8042127291370969784
 GameObject:
   m_ObjectHideFlags: 0

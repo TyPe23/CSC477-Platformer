@@ -51,15 +51,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Down",
-                    "type": "Value",
-                    "id": "b904100f-ee5f-48a9-bcd3-663183bf8656",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Throw",
                     "type": "Button",
                     "id": "c20b6e11-a9dc-4fba-a6cf-d61beadb3788",
@@ -186,28 +177,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Up",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6a876f95-ba5c-4785-9b25-87dff7b7cf6e",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Down",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "35b2f40c-4678-4e2d-bcfa-d32ae9498fa5",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Down",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

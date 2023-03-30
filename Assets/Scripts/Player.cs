@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public float speed;
     public bool alive = true;
     public bool stickyHand = false;
+    private bool up = false;
     #endregion
 
     #region Life Cycle
@@ -60,6 +61,14 @@ public class Player : MonoBehaviour
             animator.SetFloat("Idle Run", Mathf.Abs(moveDir));
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Kill"))
+        {
+            death();
+        }
+    }
     #endregion
 
     #region Input
@@ -67,17 +76,23 @@ public class Player : MonoBehaviour
     {
         moveDir = context.ReadValue<float>();
         Vector3 aimVec = Vector3.Normalize(new Vector3(moveDir, 0, 0));
-        aim = new Vector2(aimVec.x, aimVec.y);
+        if (aimVec.x != 0 && !up)
+        {
+            aim = new Vector2(aimVec.x, aimVec.y);
+        }
     }
 
     public void Up(InputAction.CallbackContext context)
     {
+        if (context.started)
+        {
+            up = true;
+        }
         aim = Vector2.up;
-    }
-
-    public void Down(InputAction.CallbackContext context)
-    {
-        aim = Vector2.down;
+        if (context.canceled)
+        {
+            up = false;
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
