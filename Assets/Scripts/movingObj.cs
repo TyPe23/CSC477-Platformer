@@ -10,6 +10,8 @@ public class movingObj : MonoBehaviour
     public bool position1;
     public bool position2;
     public float moveDist = 8f;
+    public GameObject player;
+    public bool playerCollide = false;
     
 
     // Start is called before the first frame update
@@ -28,6 +30,12 @@ public class movingObj : MonoBehaviour
             if (position1)
             {
                 transform.Translate(Vector3.left * speed * Time.deltaTime);
+                
+                if (playerCollide)
+                {
+                    player.transform.Translate(Vector3.left * speed * Time.deltaTime);
+                }
+
                 if (transform.position.x <= origPos.x - moveDist)
                 {
                     position1 = false;
@@ -37,6 +45,12 @@ public class movingObj : MonoBehaviour
             if (position2)
             {
                 transform.Translate(Vector3.right * speed * Time.deltaTime);
+
+                if (playerCollide)
+                {
+                    player.transform.Translate(Vector3.right * speed * Time.deltaTime);
+                }
+
                 if (transform.position.x >= origPos.x)
                 {
                     position1 = true;
@@ -55,5 +69,21 @@ public class movingObj : MonoBehaviour
     public void togglePower()
     {
         poweredOn = !poweredOn;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            playerCollide = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            playerCollide = false;
+        }
     }
 }

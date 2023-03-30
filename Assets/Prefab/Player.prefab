@@ -1040,7 +1040,7 @@ MonoBehaviour:
   jump: 0
   crouch: 0
   jumpsRemaining: 1
-  maxJumps: 2
+  maxJumps: 1
   speed: 100
   alive: 1
   stickyHand: 0

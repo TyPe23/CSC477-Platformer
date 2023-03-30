@@ -354,6 +354,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 365373560}
     m_Modifications:
+    - target: {fileID: 1026815911212245, guid: 724d570d1694f1940a2da99e1121c06b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 644916524}
     - target: {fileID: 1994092254420024432, guid: 724d570d1694f1940a2da99e1121c06b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -555,10 +559,6 @@ PrefabInstance:
     - target: {fileID: 507355207100364978, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 507355207100365006, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
-      propertyPath: maxJumps
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 507355207100365006, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
       propertyPath: objList.Array.data[0]
@@ -785,6 +785,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &644916524 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 507355207100364978, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
+  m_PrefabInstance: {fileID: 488386268}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &713778607
 GameObject:
   m_ObjectHideFlags: 0
@@ -59570,6 +59575,8 @@ MonoBehaviour:
   position1: 0
   position2: 0
   moveDist: 5
+  player: {fileID: 0}
+  playerCollide: 0
 --- !u!1001 &1057990005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60007,7 +60014,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 507355207100365006, guid: 519096c5ac696b24986e3b1d048050c0, type: 3}
   m_PrefabInstance: {fileID: 488386268}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 644916524}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ada19fc1ede6cd44694e91b18e52272c, type: 3}
@@ -74303,6 +74310,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 365373560}
     m_Modifications:
+    - target: {fileID: 1026815911212245, guid: 724d570d1694f1940a2da99e1121c06b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 644916524}
     - target: {fileID: 1994092254420024432, guid: 724d570d1694f1940a2da99e1121c06b, type: 3}
       propertyPath: m_RootOrder
       value: 0
