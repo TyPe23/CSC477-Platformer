@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
         if (maxJumps == 2)
         {
             moonBootsUI.enabled = true;
+            animator.SetTrigger("Moon Boots Get");
             moonBootsControl.enabled = true;
         }
         
@@ -149,10 +150,12 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             crouch = true;
+            animator.SetBool("Crouch", true);
         }
         else
         {
             crouch = false;
+            animator.SetBool("Crouch", false);
         }
     }
     #endregion
