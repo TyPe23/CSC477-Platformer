@@ -20,14 +20,15 @@ public class Enemy : MonoBehaviour
     private Dictionary<enemyStates, Action> statesStayMeths;
     private Dictionary<enemyStates, Action> statesEnterMeths;
     private Dictionary<enemyStates, Action> statesExitMeths;
-    private CharacterController2D charCon;
-    public state state { get; private set; }
+    public state state;
     public float speed;
-    private Animator animator;
+    public float origSpeed;
     public float xTarget;
     private Vector2 origPos;
 
     //Set in inspector
+    public CharacterController2D charCon;
+    public Animator animator;
     public Transform tfPlayer;
     public float distFromPlayer;
     public float speedInc;
@@ -35,6 +36,9 @@ public class Enemy : MonoBehaviour
     public float patrolDist;
     private float resetTarget;
     public Player player;
+    public GameObject vision;
+    public GameObject alert;
+    public bool idle;
     #endregion
 
     #region LifeCycle
@@ -71,10 +75,18 @@ public class Enemy : MonoBehaviour
             {state.IDLE, StateExitIdle},
         };
 
-        state = state.PATROL_RIGHT;
-        StateEnterPatRight();
-        charCon = GetComponent<CharacterController2D>();
-        animator = GetComponent<Animator>();
+        if (!idle)
+        {
+            state = state.PATROL_RIGHT;
+            StateEnterPatRight();
+        }
+        else
+        {
+            state = state.IDLE;
+            StateEnterIdle();
+            charCon.Move(-0.1f, false, false);
+        }
+        origSpeed = speed;
         origPos = transform.position;
     }
 
@@ -90,10 +102,14 @@ public class Enemy : MonoBehaviour
     {
         if (c.CompareTag("Player"))
         {
-            if ( state == state.PATROL_LEFT || state == state.PATROL_RIGHT || state == state.RESET)
+            if ( state == state.PATROL_LEFT || state == state.PATROL_RIGHT || state == state.RESET || (state == state.IDLE && player.alive))
             {
                 ChangeState(state.CHASE);
             }
+        }
+        else if (c.gameObject.CompareTag("attack"))
+        {
+            ChangeState(state.DEAD);
         }
     }
 
@@ -114,10 +130,6 @@ public class Enemy : MonoBehaviour
         {
             player.death();
             ChangeState(state.IDLE);
-        }
-        else if (c.gameObject.CompareTag("attack"))
-        {
-            ChangeState(state.DEAD);
         }
     }
 
@@ -156,7 +168,12 @@ public class Enemy : MonoBehaviour
 
     private void StateExitDead()
     {
-
+        Rigidbody2D RB = GetComponent<Rigidbody2D>();
+        RB.freezeRotation = true;
+        RB.gravityScale = 3;
+        GetComponent<CapsuleCollider2D>().enabled = true;
+        vision.SetActive(true);
+        animator.SetTrigger("Respawn");
     }
 
     private void StateExitIdle()
@@ -169,7 +186,7 @@ public class Enemy : MonoBehaviour
     private void StateEnterChase()
     {
         speed += speedInc;
-        StartCoroutine(WaitThenJump());
+        StartCoroutine(Alert());
     }
 
     private void StateEnterPatRight()
@@ -189,12 +206,16 @@ public class Enemy : MonoBehaviour
 
     private void StateEnterDead()
     {
+        Rigidbody2D RB = GetComponent<Rigidbody2D>();
+        RB.freezeRotation = false;
+        RB.gravityScale = 0;
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        vision.SetActive(false);
         animator.SetTrigger("Death");
     }
 
     private void StateEnterIdle()
     {
-
         animator.SetFloat("Idle Run", 0f);
     }
     #endregion
@@ -266,17 +287,28 @@ public class Enemy : MonoBehaviour
     #endregion
 
     #region Helper Meths
-    private IEnumerator WaitThenJump()
+    private IEnumerator Alert()
     {
+        alert.SetActive(true);
         yield return new WaitForSeconds(2);
-        jump = true;
+        alert.SetActive(false);
     }
 
     public void respawn()
     {
         transform.position = origPos;
-        state = state.PATROL_RIGHT;
-        StateEnterPatRight();
+        speed = origSpeed;
+        if (!idle)
+        {
+            state = state.PATROL_RIGHT;
+            StateEnterPatRight();
+        }
+        else
+        {
+            state = state.IDLE;
+            StateEnterIdle();
+            charCon.Move(-0.1f, false, false);
+        }
     }
     #endregion
 }

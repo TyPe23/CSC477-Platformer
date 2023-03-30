@@ -28,12 +28,12 @@ public class Grapple : MonoBehaviour
     {
         if (transform.localScale.y < targetScale.y && targetScale != startScale) 
         {
-            transform.localScale += new Vector3(0, 0.6f * Time.deltaTime, 0);
+            transform.localScale += new Vector3(0, 0.5f * Time.deltaTime, 0);
         }
         else if (transform.localScale.y > startScale.y)
         {
             targetScale = startScale;
-            transform.localScale -= new Vector3(0, 0.3f * Time.deltaTime, 0);
+            transform.localScale -= new Vector3(0, 0.2f * Time.deltaTime, 0);
         }
         else
         {
@@ -85,7 +85,7 @@ public class Grapple : MonoBehaviour
         {
             charRB.velocity = new Vector2(charRB.velocity.x, 0);
             charRB.angularVelocity = 0f;
-            player.transform.Translate(charScript.aim * Time.deltaTime * 20);
+            player.transform.Translate(charScript.aim * Time.deltaTime * 10);
         }
     }
 
