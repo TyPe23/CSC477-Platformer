@@ -110,9 +110,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507355207100364978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 55.560127, y: 9.967076, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.9192, y: 1.9192, z: 1.9192}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 507355206909064412}
   - {fileID: 507355206898114068}
@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 507355207100365004}
+  aim: {x: 0, y: 0}
   enemyList: []
   objList: []
   leverList: []
@@ -225,9 +226,6 @@ MonoBehaviour:
   jumpsRemaining: 2
   maxJumps: 2
   speed: 150
-  airSpeed: 100
-  origSpeed: 150
-  crouchSpeed: 30
   alive: 1
   stickyHand: 0
 --- !u!95 &507355207100365004
@@ -240,7 +238,7 @@ Animator:
   m_GameObject: {fileID: 507355207100364978}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bcff315f2daca40ea9bcc5056cbd4d7f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -340,6 +338,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 45b92b07-ad8b-4fc5-b907-8ff2b8895a6b
     m_ActionName: Char/Crouch[/Keyboard/s,/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3c94b6bb-ac09-4b8f-a6fa-84841fc7b1f6
+    m_ActionName: Char/Up[/Keyboard/w,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b904100f-ee5f-48a9-bcd3-663183bf8656
+    m_ActionName: Char/Down[/Keyboard/s,/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c20b6e11-a9dc-4fba-a6cf-d61beadb3788
+    m_ActionName: Char/Throw[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9609ceea-eab5-4f68-a88d-495ce08c3540
+    m_ActionName: Char/Left/Right[/Keyboard/a,/Keyboard/d,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Char
@@ -370,8 +384,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2649528816683720267}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.329, z: 0}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 507355207100364977}
