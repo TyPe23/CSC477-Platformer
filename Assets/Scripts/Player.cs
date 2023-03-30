@@ -52,11 +52,9 @@ public class Player : MonoBehaviour
         stickyHandControl.enabled = false;
         moonBootsUI.enabled = false;
         moonBootsControl.enabled = false;
-        
-=======
         walking.Play();
 
->>>>>>> Stashed changes
+
     }
 
     private void Update()
