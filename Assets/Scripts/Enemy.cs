@@ -264,7 +264,15 @@ public class Enemy : MonoBehaviour
     {
         if (Mathf.Abs(transform.position.x - origPos.x) < 0.1f)
         {
-            ChangeState(state.PATROL_RIGHT);
+            if (!idle)
+            {
+                ChangeState(state.PATROL_RIGHT);
+            }
+            else
+            {
+                ChangeState(state.IDLE);
+                charCon.Move(-0.1f, false, false);
+            }
         }
         else
         {
