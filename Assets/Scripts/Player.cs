@@ -4,6 +4,7 @@ using TMPro;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Processors;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
@@ -35,6 +36,9 @@ public class Player : MonoBehaviour
     public bool alive = true;
     public bool stickyHand = false;
     private bool up = false;
+    public AudioSource boing;
+    public AudioSource walking;
+    public AudioSource dead;
     #endregion
 
     #region Life Cycle
@@ -49,6 +53,10 @@ public class Player : MonoBehaviour
         moonBootsUI.enabled = false;
         moonBootsControl.enabled = false;
         
+=======
+        walking.Play();
+
+>>>>>>> Stashed changes
     }
 
     private void Update()
@@ -77,11 +85,15 @@ public class Player : MonoBehaviour
             if (charCon.IsPlayerOnGround())
             {
                 animator.SetTrigger("Grounded");
+                walking.volume = (Mathf.Abs(moveDir)) / 10;
             }
 
             charCon.Move(moveDir * speed * Time.fixedDeltaTime, crouch, jump);
             jump = false;
             animator.SetFloat("Idle Run", Mathf.Abs(moveDir));
+
+            
+            
         }
     }
 
@@ -99,6 +111,10 @@ public class Player : MonoBehaviour
     {
         moveDir = context.ReadValue<float>();
         Vector3 aimVec = Vector3.Normalize(new Vector3(moveDir, 0, 0));
+        walking.Play();
+
+
+
         if (aimVec.x != 0 && !up)
         {
             aim = new Vector2(aimVec.x, aimVec.y);
@@ -125,6 +141,7 @@ public class Player : MonoBehaviour
             jumpsRemaining--;
             jump = true;
             animator.SetTrigger("Jump");
+            boing.Play();
             charCon.m_Grounded = false;
         }
     }
@@ -148,6 +165,7 @@ public class Player : MonoBehaviour
         print("died");
         alive = false;
         animator.SetTrigger("Death");
+        dead.Play();
         StartCoroutine(WaitThenRespawn());
     }
 

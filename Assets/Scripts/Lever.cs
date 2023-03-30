@@ -6,6 +6,12 @@ public class Lever : MonoBehaviour
 {
     public bool flipped = false;
     public movingObj[] objs;
+    private AudioSource lever;
+
+    private void Start()
+    {
+        lever = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D c)
     {
@@ -19,6 +25,7 @@ public class Lever : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 
             flipped = true;
+            lever.Play();
             // play some sound here
         }
     }

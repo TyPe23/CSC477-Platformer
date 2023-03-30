@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Sprites/Pixel Sprites.meta
 guid: 45fd660d9b4f04af085dab8b28504ce1
+========
+guid: 206d617f28bdf49409233f832af5e140
+>>>>>>>> Stashed changes:Assets/Sound.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

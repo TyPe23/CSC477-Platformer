@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
     public GameObject vision;
     public GameObject alert;
     public bool idle;
+    public AudioSource alerted;
     #endregion
 
     #region LifeCycle
@@ -104,6 +105,7 @@ public class Enemy : MonoBehaviour
         {
             if ( state == state.PATROL_LEFT || state == state.PATROL_RIGHT || state == state.RESET || (state == state.IDLE && player.alive))
             {
+                alerted.Play();
                 ChangeState(state.CHASE);
             }
         }
