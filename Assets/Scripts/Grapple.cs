@@ -45,7 +45,7 @@ public class Grapple : MonoBehaviour
 
     public void Throw(InputAction.CallbackContext context)
     {
-        if (charScript.stickyHand && context.performed && thrown == false)
+        if (charScript.stickyHand && context.performed && thrown == false && !charScript.crouch)
         {
             if (charScript.aim == new Vector2(1, 0))
             {

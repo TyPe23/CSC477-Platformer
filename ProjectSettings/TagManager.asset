@@ -12,6 +12,7 @@ TagManager:
   - attack
   - Checkpoint
   - stickyhand
+  - Kill
   layers:
   - Default
   - TransparentFX

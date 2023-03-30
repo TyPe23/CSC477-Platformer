@@ -4,12 +4,16 @@ using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
+
 
 public class Player : MonoBehaviour
 {
     #region Fields and Properties
     private float moveDir;
 
+    [SerializeField] Image stickyHandUI;
+    [SerializeField] Image moonBootsUI;
 
     private CharacterController2D charCon;
     private Vector2 spawnPoint;
@@ -27,6 +31,7 @@ public class Player : MonoBehaviour
     public float speed;
     public bool alive = true;
     public bool stickyHand = false;
+    private bool up = false;
     #endregion
 
     #region Life Cycle
@@ -36,10 +41,22 @@ public class Player : MonoBehaviour
         jump = false;
         spawnPoint = transform.position;
         origPoint = transform.position;
+        stickyHandUI.enabled = false;
+        moonBootsUI.enabled = false;
+        
     }
 
     private void Update()
     {   
+        if (stickyHand)
+        {
+            stickyHandUI.enabled = true;
+        }
+
+        if (maxJumps == 2)
+        {
+            moonBootsUI.enabled = true;
+        }
         
         if (charCon.IsPlayerOnGround())// && charCon.m_Rigidbody2D.velocity.y <=0) COLIN: we could re-add this and make it to where you must stand still to jump? Call it a feature
         {
@@ -60,6 +77,14 @@ public class Player : MonoBehaviour
             animator.SetFloat("Idle Run", Mathf.Abs(moveDir));
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Kill"))
+        {
+            death();
+        }
+    }
     #endregion
 
     #region Input
@@ -67,17 +92,23 @@ public class Player : MonoBehaviour
     {
         moveDir = context.ReadValue<float>();
         Vector3 aimVec = Vector3.Normalize(new Vector3(moveDir, 0, 0));
-        aim = new Vector2(aimVec.x, aimVec.y);
+        if (aimVec.x != 0 && !up)
+        {
+            aim = new Vector2(aimVec.x, aimVec.y);
+        }
     }
 
     public void Up(InputAction.CallbackContext context)
     {
+        if (context.started)
+        {
+            up = true;
+        }
         aim = Vector2.up;
-    }
-
-    public void Down(InputAction.CallbackContext context)
-    {
-        aim = Vector2.down;
+        if (context.canceled)
+        {
+            up = false;
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
