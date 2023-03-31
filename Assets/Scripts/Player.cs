@@ -173,7 +173,7 @@ public class Player : MonoBehaviour
     private IEnumerator WaitThenRespawn()
     {
         print("waiting");
-        yield return new WaitForSecondsRealtime(2);
+        yield return new WaitForSecondsRealtime(3);
         print("respawn");
         respawn();
     }
