@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Allows us to make multiple powerup objects with properties we can manipulate in unity editor; We can have variations of the same power up

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -7,25 +6,21 @@ using UnityEngine;
 public class PowerUpObject : MonoBehaviour
 {
     private Vector2 origPos;
+    public AudioSource fanfare;
+    public SpriteRenderer rend;
+    private bool grabbed = false;
 
     public Powerup powerup; // Calls PowerAbstract.cs
     public void OnTriggerEnter2D(Collider2D collision)
     {
         // Checks if the colliding game object tag begins with "Player" (In this case it *IS* "Player")
-        if (collision.gameObject.transform.tag.StartsWith("Player"))
+        if (collision.gameObject.transform.tag.StartsWith("Player") && !grabbed)
         {
-            // Assign variables to get the CharacterController2D component
-            GameObject lilboy = collision.gameObject;
-            CharacterController2D lilboyScript = lilboy.GetComponent<CharacterController2D>();
-            
-            // If the collided object is of the CharacterController2D class....
-            if (lilboyScript)
-            {
-                //...destroy the power up sprite
-                Destroy(gameObject);
-                //...apply the power up effect to the object of the CharacterController2D class
-                powerup.Apply(lilboyScript.gameObject); // Calls PowerAbstract.cs
-            }
+            grabbed = true;
+
+            powerup.Apply(collision.gameObject);
+
+            StartCoroutine(PlaySoundThenDestroy());
         }
     }
 
@@ -37,5 +32,13 @@ public class PowerUpObject : MonoBehaviour
     private void Update()
     {
         transform.position = new Vector2(transform.position.x, origPos.y + Mathf.Sin(Time.time) * 0.125f);
+    }
+
+    private IEnumerator PlaySoundThenDestroy()
+    {
+        rend.enabled = false;
+        fanfare.Play();
+        yield return new WaitForSecondsRealtime(3);
+        Destroy(gameObject);
     }
 }

@@ -1,11 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Processors;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 
@@ -53,8 +49,6 @@ public class Player : MonoBehaviour
         moonBootsUI.enabled = false;
         moonBootsControl.enabled = false;
         walking.Play();
-
-
     }
 
     private void Update()
@@ -72,7 +66,7 @@ public class Player : MonoBehaviour
             moonBootsControl.enabled = true;
         }
         
-        if (charCon.IsPlayerOnGround())// && charCon.m_Rigidbody2D.velocity.y <=0) COLIN: we could re-add this and make it to where you must stand still to jump? Call it a feature
+        if (charCon.IsPlayerOnGround())
         {
             jumpsRemaining = maxJumps;
         }
@@ -84,15 +78,16 @@ public class Player : MonoBehaviour
             if (charCon.IsPlayerOnGround())
             {
                 animator.SetTrigger("Grounded");
-                walking.volume = (Mathf.Abs(moveDir)) / 10;
+                walking.volume = (Mathf.Abs(moveDir)) / 15;
+            }
+            else
+            {
+                walking.volume = 0;
             }
 
             charCon.Move(moveDir * speed * Time.fixedDeltaTime, crouch, jump);
             jump = false;
             animator.SetFloat("Idle Run", Mathf.Abs(moveDir));
-
-            
-            
         }
     }
 
@@ -110,9 +105,6 @@ public class Player : MonoBehaviour
     {
         moveDir = context.ReadValue<float>();
         Vector3 aimVec = Vector3.Normalize(new Vector3(moveDir, 0, 0));
-        walking.Play();
-
-
 
         if (aimVec.x != 0 && !up)
         {

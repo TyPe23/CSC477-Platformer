@@ -208,10 +208,6 @@ public class Enemy : MonoBehaviour
 
     private void StateEnterDead()
     {
-        Rigidbody2D RB = GetComponent<Rigidbody2D>();
-        RB.freezeRotation = false;
-        RB.gravityScale = 0;
-        GetComponent<CapsuleCollider2D>().enabled = false;
         vision.SetActive(false);
         animator.SetTrigger("Death");
     }
