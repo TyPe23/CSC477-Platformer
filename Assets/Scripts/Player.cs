@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public movingObj[] objList;
     public Lever[] leverList;
     public bool jump;
+    private bool jumpAction = false;
     public bool crouch; 
     public int jumpsRemaining;
     public int maxJumps;
@@ -66,7 +67,7 @@ public class Player : MonoBehaviour
             moonBootsControl.enabled = true;
         }
         
-        if (charCon.IsPlayerOnGround())
+        if (charCon.IsPlayerOnGround() && !jumpAction)
         {
             jumpsRemaining = maxJumps;
         }
@@ -131,9 +132,14 @@ public class Player : MonoBehaviour
         {
             jumpsRemaining--;
             jump = true;
+            jumpAction = true;
             animator.SetTrigger("Jump");
             boing.Play();
             charCon.m_Grounded = false;
+        }
+        if (context.canceled)
+        {
+            jumpAction = false;
         }
     }
 
@@ -142,12 +148,10 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             crouch = true;
-            animator.SetBool("Crouch", true);
         }
         else
         {
             crouch = false;
-            animator.SetBool("Crouch", false);
         }
     }
     #endregion
